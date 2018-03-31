@@ -13,7 +13,7 @@ import utilities.Extent;
 				"json:target/cucumber.json"},
 		features = "./src/test/resources/features",
 		glue = "stepDefinitions",
-		tags = "@Excel",
+		tags = "@dev",
 		dryRun = false
 		
 )
