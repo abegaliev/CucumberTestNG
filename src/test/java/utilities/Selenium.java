@@ -143,7 +143,7 @@ public class Selenium {
 	 * 
 	 * @param WebElement
 	 * @param timeOutInSec
-	 * @return
+	 * @return WebElement
 	 */
 	public static WebElement waitToBeVisible(WebElement element, int timeOutInSec) {
 		System.out.println("Explicitly waiting: " + timeOutInSec + " seconds for element to be available");

@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import utilities.Browser;
 import utilities.ExcelUtils;
+import utilities.Jsexecutor;
 import utilities.Page;
 import utilities.Selenium;
 
@@ -64,10 +65,11 @@ public class SuiteCRMDashboardPage {
 	}
 
 	public void logout() {
-		Page.waitForPageLoad(2);
+//		Page.waitForPageLoad(2);
+//		Jsexecutor.scroll(profileIcon);
 		Page.moveToElement(profileIcon);
-		Selenium.waitToBeClickable(logoutLink, 1).click();
-		ExcelUtils.setCellData("End", 7, 5);
+		profileIcon.click();
+		Selenium.waitToBeVisible(logoutLink, 2).click();
 	}
 	
 	

@@ -1,21 +1,16 @@
 package stepDefinitions;
 
-import java.awt.Desktop.Action;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import pages.ContactsPage;
 import pages.SuiteCRMDashboardPage;
 import pages.SuiteCRMLoginPage;
 import utilities.Browser;
 import utilities.Config;
-import utilities.Selenium;
 
 public class UserInterfaceTest_stepDefs {
 
@@ -25,6 +20,7 @@ public class UserInterfaceTest_stepDefs {
 	
 	@Given("^I logged into suiteCRM$")
 	public void i_logged_into_suiteCRM() {
+		WebDriver driver = Browser.getDriver();
 		driver.get(Config.getProperty("url"));
 		loginPage.login();
 	}
@@ -50,7 +46,7 @@ public class UserInterfaceTest_stepDefs {
 	public void log_out() {
 
 		dashPage.logout();
-//		Browser.closeDriver();
+		driver.quit();;
 
 	}
 

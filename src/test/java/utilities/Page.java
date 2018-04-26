@@ -24,11 +24,12 @@ public class Page {
 	 */
 	public static void moveToElement(WebElement element) {
 		Actions action = new Actions(driver);
-		action.moveToElement(element).build().perform();
+		action.moveToElement(element).perform();
 	}
 
 	/**
-	 * Rotates the scroll wheel on wheel- equipped mice.
+	 * Rotates the scroll wheel on wheel- equipped mice
+	 * Uses robot class
 	 * 
 	 * @param scroll,
 	 *            number of "notches" to move the mouse wheel Negative values

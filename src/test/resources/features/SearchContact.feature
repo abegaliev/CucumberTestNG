@@ -6,3 +6,4 @@ Feature: Contact search Functionality
     Given I logged into suiteCRM
     When I search for "John Doe"
     Then link for user "John Doe" should be displayed
+    Then Log out

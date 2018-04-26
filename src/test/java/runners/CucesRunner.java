@@ -11,19 +11,17 @@ import utilities.Extent;
 
 		plugin = { "pretty", "html:target/cucumber-report",
 				"json:target/cucumber.json"},
-		features = "./src/test/resources/features",
+		features = {"./src/test/resources/features", "./src/test/resources/hrapp_features"},
 		glue = "stepDefinitions",
-		tags = "@Excel",
+		tags = "@API",
 		dryRun = false
-		
 )
 
 public class CucesRunner extends AbstractTestNGCucumberTests {
 
 	@BeforeClass
 	public void setup() {
-		System.out.println("Hello from BeforeClass");
-		Extent.setupExtent();
+		
 	}
 
 	@AfterClass

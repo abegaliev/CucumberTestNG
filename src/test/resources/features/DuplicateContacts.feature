@@ -8,3 +8,4 @@ Feature: Contact Information
     And If duplicated contact "John Doe" exists
     And remove duplicates for this contact
     Then there should be only 1 "John Doe" in the contacts page
+    Then Log out

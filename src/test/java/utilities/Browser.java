@@ -24,7 +24,7 @@ public class Browser {
 	 */
 	public static WebDriver getDriver() {
 		
-		if(driver == null || ((RemoteWebDriver)driver).getSessionId() == null ) {
+		if(driver == null ) { //|| ((RemoteWebDriver)driver).getSessionId() == null ) {
 	
 		switch(Config.getProperty("browser").toLowerCase()) {
 		
@@ -49,7 +49,7 @@ public class Browser {
 			break;
 			
 		case "safari":
-			WebDriverManager.iedriver().setup();
+			System.setProperty("webdriver.safari.driver", Config.getProperty("safariPath"));
 			driver = new SafariDriver();
 			
 		}

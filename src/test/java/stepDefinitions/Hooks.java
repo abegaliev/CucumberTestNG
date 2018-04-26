@@ -12,8 +12,14 @@ import utilities.Extent;
 
 public class Hooks {
 
+	@Before
+	public void setUp() {
+		WebDriver driver = Browser.getDriver();
+	}
+	
 	@After
 	public void afterMethod(Scenario scenario) {
+		
 		WebDriver driver = Browser.getDriver();
 
 		if (scenario.isFailed()) {
@@ -21,10 +27,12 @@ public class Hooks {
 			scenario.embed(screenshot, "image/png");
 			Extent.failTest(scenario);
 			System.out.println("Watch: ==>>" + scenario.getName());
+			
 		} else {
 			Extent.passTest(scenario);
 		}
-
+		
+		Browser.closeDriver();
 	}
 
 }
