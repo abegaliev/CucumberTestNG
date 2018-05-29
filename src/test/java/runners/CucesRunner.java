@@ -12,9 +12,10 @@ import utilities.Extent;
 
 		plugin = { "pretty", "html:target/cucumber-report",
 				"json:target/cucumber.json"},
-		features = {"./src/test/resources/features", "./src/test/resources/hrapp_features"},
-		glue = {"stepDefinitions", "./stepDefinitions/stepDefsApi"},
-		tags = "@API",
+
+		features = "./src/test/resources/features",
+		glue = "stepDefinitions",
+		tags = "@dev",
 		dryRun = false
 )
 
