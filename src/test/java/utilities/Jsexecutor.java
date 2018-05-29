@@ -25,7 +25,7 @@ public class Jsexecutor {
 	 * 
 	 * @param By
 	 *            locator
-	 * @return
+	 * @return WebElement
 	 */
 	public static WebElement getElement(By locator) {
 		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
@@ -41,17 +41,20 @@ public class Jsexecutor {
 
 		} else if (locator instanceof ByCssSelector) {
 			element = (WebElement) js.executeScript("return document.querySelector(" + locText + ");");
-		
+
 		} else if (locator instanceof ByClassName) {
-			List<WebElement> list = (List<WebElement>) js.executeScript("return document.getElementsByClassName(" + locText + ");");
+			List<WebElement> list = (List<WebElement>) js
+					.executeScript("return document.getElementsByClassName(" + locText + ");");
 			if (list.size() > 0)
 				element = list.get(0);
 
-//		} else if (locator instanceof ByXPath) {
-//			element = (WebElement) js.executeScript("return document.getElementByXPath(" + locText + ");");
+			// } else if (locator instanceof ByXPath) {
+			// element = (WebElement) js.executeScript("return document.getElementByXPath("
+			// + locText + ");");
 
 		} else if (locator instanceof ByName) {
-			List<WebElement> list = (List<WebElement>) js.executeScript("return document.getElementsByName(" + locText + ");");
+			List<WebElement> list = (List<WebElement>) js
+					.executeScript("return document.getElementsByName(" + locText + ");");
 			if (list.size() > 0)
 				element = list.get(0);
 		}
@@ -62,7 +65,6 @@ public class Jsexecutor {
 		return element;
 	}
 
-	
 	/**
 	 * Clicks given WebElement.
 	 * 
@@ -73,7 +75,6 @@ public class Jsexecutor {
 		js.executeScript("arguments[0].click();", element);
 	}
 
-	
 	/**
 	 * Highlights before clicking the given WebElement.
 	 * 
@@ -85,7 +86,6 @@ public class Jsexecutor {
 		js.executeScript("arguments[0].click();", element);
 	}
 
-	
 	/**
 	 * Clicks given WebElement using JavascriptExecutor and catches any Exceptions
 	 * 
@@ -107,7 +107,6 @@ public class Jsexecutor {
 		}
 	}
 
-	
 	/**
 	 * Scrolls the window by given pixels, ==> Positive number, makes scroll down
 	 * ==> Negative number, makes scroll up
@@ -124,12 +123,11 @@ public class Jsexecutor {
 	 * 
 	 * @param element
 	 */
-	public static void moveToElement(WebElement element) {
+	public static void scrollToElement(WebElement element) {
 		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
 		js.executeScript("arguments[0].scrollIntoView(true);", element);
 	}
 
-	
 	/**
 	 * Highlights the given element on the WebPage;
 	 * 
@@ -137,11 +135,10 @@ public class Jsexecutor {
 	 */
 	public static void highlight(WebElement element) {
 		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
-		js.executeScript("arguments[0].style.border='3px dotted blue'", element);
+		js.executeScript("arguments[0].style.border='3px dotted red'", element);
 
 	}
 
-	
 	/**
 	 * Returns text of the given WebElement
 	 * 
@@ -152,14 +149,59 @@ public class Jsexecutor {
 		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
 
 		String text = (String) (js.executeScript("return arguments[0].value;", element));
-
 		if (text == null || text.isEmpty()) {
 			text = (String) (js.executeScript("return arguments[0].innerHTML;", element));
 		}
 		return text;
 	}
 
-	
+	/**
+	 * Sends a keys to the WebElement, just like a sendkeys() method.
+	 * 
+	 * @param WebElement
+	 * @param AttributeName
+	 * @param Value
+	 */
+	public static void setText(WebElement element, String attributeName, String text) {
+		// WrapsDriver wrappedElement = (WrapsDriver) element;
+		// JavascriptExecutor driver = (JavascriptExecutor)wrappedElement.getWrappedDriver();
+		
+		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
+		js.executeScript("arguments[0].setAttribute(arguments[1],arguments[2])", element, attributeName, text);
+	}
+
+	/**
+	 * Returns Title of the page
+	 * 
+	 * @return title
+	 */
+	public static String getTitle() {
+		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
+		String title = js.executeScript("return document.title;").toString().trim();
+		return title;
+	}
+
+	/**
+	 * Returns Page Inner Text(All text on the page)
+	 * 
+	 * return pageText;
+	 */
+	public static String getInnerText() {
+		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
+		String pageText = js.executeScript("return document.documentElement.innerText;").toString().trim();
+		return pageText;
+	}
+
+	/**
+	 * Generates Java Script Alert on the page.
+	 * 
+	 * @param message
+	 */
+	public static void generateAlert(String message) {
+		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
+		js.executeScript("alert('" + message + "')");
+	}
+
 	/**
 	 * Refreshes the page.
 	 */
@@ -168,7 +210,6 @@ public class Jsexecutor {
 		js.executeScript("history.go(0);");
 	}
 
-	
 	/**
 	 * Returns size of the Browser's Window
 	 * 

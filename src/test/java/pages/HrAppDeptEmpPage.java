@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import utilities.Browser;
-import utilities.Selenium;
+import utilities.Element;
 
 public class HrAppDeptEmpPage {
 
@@ -52,6 +52,8 @@ public class HrAppDeptEmpPage {
 	@FindBy(css = "div[id='pt1:pc1:t1::db'] tr")
 	public List<WebElement> employees;
 	
+	@FindBy(id = "pt1:cb6")
+	public WebElement queryBtn;
 	
 
 	public void searchForDepartment(int deptId) {
@@ -59,7 +61,7 @@ public class HrAppDeptEmpPage {
 
 		while (currentDepId != deptId) {
 			nextBtn.click();
-			Selenium.waitToBeVisible(depId, 5);
+			Element.waitToBeVisible(depId, 5);
 			currentDepId = Integer.parseInt(depId.getText().trim());
 		}
 

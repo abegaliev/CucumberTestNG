@@ -1,6 +1,5 @@
 package pages;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -8,11 +7,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.asserts.SoftAssert;
 
 import utilities.Browser;
-import utilities.DropDown;
-import utilities.Selenium;
+import utilities.Element;
 
 public class ContactsPage {
 
@@ -70,7 +69,7 @@ public class ContactsPage {
 	
 	public void removeDuplicates() {
 		contactLinks.get(0).click();
-		Selenium.waitToBeClickable(actionsBtn, 2).click();
+		Element.waitToBeClickable(actionsBtn, 2).click();
 		doAction("Find Duplicates");
 		nextSepBtn.click();
 		performMerge.click();
@@ -91,8 +90,8 @@ public class ContactsPage {
 	public void createContact(String firstNameIn, String lastNameIn, String prefix, String titleIn, String phoneNum) {
 		firstName.sendKeys(firstNameIn);
 		lastName.sendKeys(lastNameIn);
-		DropDown drDown = new DropDown(prefixDropD);
-		drDown.chooseOptions(prefix);
+		Select drDown = new Select(prefixDropD);
+		drDown.selectByValue(prefix);
 		title.sendKeys(titleIn);
 		phoneNumber.sendKeys(phoneNum);
 		save();

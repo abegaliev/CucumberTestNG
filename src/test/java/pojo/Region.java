@@ -2,6 +2,7 @@ package pojo;
 
 import com.google.gson.annotations.SerializedName;
 
+//@JsonIgnoreProperties(ignoreUnknow=true)
 public class Region {
 
 	@SerializedName("region_id")

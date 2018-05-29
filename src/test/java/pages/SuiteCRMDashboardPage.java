@@ -9,10 +9,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import utilities.Browser;
+import utilities.Element;
 import utilities.ExcelUtils;
 import utilities.Jsexecutor;
 import utilities.Page;
-import utilities.Selenium;
 
 public class SuiteCRMDashboardPage {
 
@@ -69,7 +69,7 @@ public class SuiteCRMDashboardPage {
 //		Jsexecutor.scroll(profileIcon);
 		Page.moveToElement(profileIcon);
 		profileIcon.click();
-		Selenium.waitToBeVisible(logoutLink, 2).click();
+		Element.waitToBeVisible(logoutLink, 2).click();
 	}
 	
 	

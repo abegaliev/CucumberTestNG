@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeClass;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
+import utilities.Browser;
 import utilities.Extent;
 
 @CucumberOptions(
@@ -12,7 +13,7 @@ import utilities.Extent;
 		plugin = { "pretty", "html:target/cucumber-report",
 				"json:target/cucumber.json"},
 		features = {"./src/test/resources/features", "./src/test/resources/hrapp_features"},
-		glue = "stepDefinitions",
+		glue = {"stepDefinitions", "./stepDefinitions/stepDefsApi"},
 		tags = "@API",
 		dryRun = false
 )
@@ -26,6 +27,7 @@ public class CucesRunner extends AbstractTestNGCucumberTests {
 
 	@AfterClass
 	public void tearDown() {
+		Browser.quit();
 		Extent.flushExtent();
 	}
 

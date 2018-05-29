@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
+
 /**
  * Customized class by author, which helps with configuration of the framework
  * by reading properties file.
@@ -14,26 +15,28 @@ import java.util.Properties;
 public final class Config {
 
 	private static Properties properties;
-	
+
 	static {
-		final String fileName = "./src/test/resources/testData/configuration.properties";					//file path
+		final String fileName = "./configuration.properties";
 		try {
 			FileInputStream input = new FileInputStream(fileName);
 			properties = new Properties();
 			properties.load(input);
 			input.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("File not found: " + fileName );
+
+			System.err.println("Could't find properties file: " + fileName+":\n"+e);
 
 		} catch (IOException e) {
-			System.out.println("Exception while reading the file: " + fileName );
+			System.out.println("Exception while reading the file: " + fileName);
 		}
 	}
-	
+
 	/**
-	 * Method returns a value of the given key from properties file. 
+	 * Method returns a value of the given key from properties file.
 	 * 
-	 * @param String key
+	 * @param String
+	 *            key
 	 * @return String value of the key
 	 */
 	public static String getProperty(String key) {

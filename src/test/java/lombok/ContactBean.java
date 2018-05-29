@@ -1,4 +1,4 @@
-package beans;
+package lombok;
 
 @lombok.Getter
 @lombok.Setter

@@ -4,8 +4,8 @@ import org.testng.Assert;
 
 import cucumber.api.java.en.When;
 import pages.ContactsPage;
+import utilities.Browser;
 import utilities.ExcelUtils;
-import utilities.Selenium;
 
 public class CreatContactUsingExcel {
 
@@ -24,7 +24,7 @@ public class CreatContactUsingExcel {
 				}else {
 					ExcelUtils.setCellData("Failed", i, 2);
 				}
-				Selenium.sleep(2);
+				Browser.sleep(2);
 			} else {
 				ExcelUtils.setCellData("Skipped", i, 2);
 			}

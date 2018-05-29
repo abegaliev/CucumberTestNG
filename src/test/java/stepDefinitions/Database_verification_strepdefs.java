@@ -14,9 +14,8 @@ import pages.HrAppDeptEmpPage;
 import tests.OracleDb;
 import utilities.Browser;
 import utilities.Config;
+import utilities.Element;
 import utilities.Jsexecutor;
-import utilities.Page;
-import utilities.Selenium;
 
 public class Database_verification_strepdefs {
 
@@ -71,7 +70,7 @@ public class Database_verification_strepdefs {
 		
 		deptEmpPage.email.sendKeys(email);
 		deptEmpPage.findDepails.click();
-		Selenium.waitToBeVisible(deptEmpPage.firstName, 1);
+		Element.waitToBeVisible(deptEmpPage.firstName, 1);
 		
 		String firstName = deptEmpPage.firstName.getText();
 		String lastName = deptEmpPage.lastName.getText();
@@ -86,7 +85,7 @@ public class Database_verification_strepdefs {
 		HrAppDeptEmpPage deptEmpPage = new HrAppDeptEmpPage();
 		
 		deptEmpPage.searchForDepartment(depId);
-		Selenium.sleep(2);
+		Browser.sleep(2);
 		deptEmpPage.detach.click();
 		Jsexecutor.scroll(1000);
 		

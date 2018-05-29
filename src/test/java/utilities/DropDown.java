@@ -1,37 +1,42 @@
 package utilities;
 
-import java.util.List;
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
+import static org.testng.Assert.*;
 
 public class DropDown {
 
 	private Select select;
 	
+	
 	public DropDown(WebElement dropDown) {
 		select = new Select(dropDown);
 	}
 	
-	public void chooseOptions(String opt) {
-		select.selectByVisibleText(opt);
-	}
-	
+	/**
+	 * Verifies default option of the drop down using Assert class.
+	 * 
+	 * @param expectedValue
+	 */
 	public void verifyDefaultOption(String expectedValue) {
-		Assert.assertEquals(select.getFirstSelectedOption().getText(), expectedValue);
+		assertEquals(select.getFirstSelectedOption().getText(), expectedValue);
 	}
 	
-	public void verifyChosenOption(String value) {
-		select.selectByVisibleText(value);
-		Assert.assertEquals(select.getFirstSelectedOption().getText(), value);
+	public void verifyChosenOption(String text) {
+		select.selectByVisibleText(text);
+		assertEquals(select.getFirstSelectedOption().getText(), text);
 	}
 	
-	public void verifyRandomOpIndex() {
+	public void verifyRandomOpByIndex() {
 		String firstSelectedOp = select.getFirstSelectedOption().getText();
-		select.selectByIndex(Num.getRandomInt(select.getOptions().size()-1));
-		Assert.assertNotEquals(select.getFirstSelectedOption().getText(), firstSelectedOp);
+		select.selectByIndex(Num.getRandomInt(select.getOptions().size()));
+		
+		assertNotEquals(select.getFirstSelectedOption().getText(), firstSelectedOp);
 	}
+	
+	
+	
+	
 	
 	
 	

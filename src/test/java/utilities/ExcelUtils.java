@@ -19,7 +19,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * ====> Open Excel File ( ExcelUtils.openExcelFile(filePath, sheetName) )
  * before using methods of this class.
  * file.
- * 
  */
 public class ExcelUtils {
 
@@ -27,13 +26,15 @@ public class ExcelUtils {
 	private static XSSFSheet excelWSheet;
 	private static String excelFilePath;
 
+
 	/**
-	 * Opens Excel file.
+	 * Opens Excel file,
 	 * 
 	 * @param excelFilePath
 	 * @param sheetName
+	 * 
 	 */
-	public static void openExcelFile(String filePath, String sheetName) {
+	public static void  openExcelFile(String filePath, String sheetName) {
 		excelFilePath = filePath;
 		try {
 
@@ -46,13 +47,10 @@ public class ExcelUtils {
 			System.out.println("Exception from Constructor of ExcelUtils: " + e);
 		}
 	}
-	
-	
 
 	/**
-	 * Reads the data from the Excel cell and returns it.
-	 * If there is no existing cell, returns empty String.
-	 * Accepts as a parameter Row number and Column number.
+	 * This method is to read the data from the Excel cell. Accepts as a parameter
+	 * Row number and Column number
 	 * 
 	 * @param rowNum
 	 * @param colNum
@@ -69,7 +67,6 @@ public class ExcelUtils {
 		}
 	}
 
-	
 	/**
 	 * Writes data in the Excel cell.
 	 * 
@@ -115,7 +112,7 @@ public class ExcelUtils {
 		String[][] testData = null;
 
 		try {
-			// Handle numbers and strings
+			// Handles numbers and strings
 			DataFormatter formatter = new DataFormatter();
 			// BoundaryCells are the first and the last column
 			// We need to find first and last column, so that we know which rows to read for

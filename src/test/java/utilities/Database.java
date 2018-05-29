@@ -19,6 +19,12 @@ public class Database {
 	private static int rowCount;
 
 	
+	/**
+	 * Establishes the Connection to Database
+	 * Takes: Database URL, user name and password from properties file
+	 * 
+	 * @param dbType
+	 */
 	public static void establishConnection(DBType dbType) {
 		switch (dbType) {
 		case ORACLE:
@@ -40,6 +46,12 @@ public class Database {
 
 	}
 	
+	/**
+	 * Returns count of displayed rows of data
+	 * 
+	 * @param sqlQuery
+	 * @return rows
+	 */
 	public static int getRowCount(String sqlQuery) {
 		try {
 			resultSet = statement.executeQuery(sqlQuery);
@@ -53,6 +65,13 @@ public class Database {
 	}
 	
 	
+	/**
+	 * Accepts SQL Query and Returns data from database in List<Map> format
+	 * Where each row is a element of Maps in List 
+	 * 
+	 * @param sqlQuery
+	 * @return
+	 */
 	public static List<Map<String, Object>> runSQLQuery(String sqlQuery){
 		try {
 			resultSet = statement.executeQuery(sqlQuery);
@@ -81,6 +100,9 @@ public class Database {
 	}
 	
 	
+	/**
+	 * Closes the connection to database
+	 */
 	public static void closeConnection() {
 		
 		try {
