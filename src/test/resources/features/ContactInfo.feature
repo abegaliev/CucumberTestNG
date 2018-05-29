@@ -7,3 +7,4 @@ Scenario:  Acceptance Criteria
         And  I open contact "John Doe"
         Then contact name should be "JOHN DOE"
         And  contact email should be "johnDoe@example.org"
+        Then Log out

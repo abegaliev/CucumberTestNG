@@ -2,8 +2,8 @@ package stepDefinitions;
 
 import java.util.List;
 
-import beans.ContactBean;
 import cucumber.api.java.en.Given;
+import lombok.ContactBean;
 
 public class CreatContactUsingBean_setDef {
 

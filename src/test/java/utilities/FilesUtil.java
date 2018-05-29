@@ -70,6 +70,7 @@ public class FilesUtil {
 		return text;
 	}
 
+	
 	public static void copyFile(File sourceFile, File file) {
 		
 		FileChannel sourceChannel = null;

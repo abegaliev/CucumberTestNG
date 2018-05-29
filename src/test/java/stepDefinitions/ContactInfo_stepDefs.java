@@ -1,15 +1,10 @@
 package stepDefinitions;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.asserts.SoftAssert;
 
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import pages.ContactsPage;
-import pages.SuiteCRMDashboardPage;
-import pages.SuiteCRMLoginPage;
-import utilities.Browser;
 
 public class ContactInfo_stepDefs {
 	
@@ -17,7 +12,8 @@ public class ContactInfo_stepDefs {
 	
 	@When("^I open contact \"([^\"]*)\"$")
 	public void i_open_contact(String contact) {
-	    contPage.contactLinks.get(0).click();
+	  contPage.contactLinks.get(0).click();
+	  
 	}
 
 	@Then("^contact name should be \"([^\"]*)\"$")

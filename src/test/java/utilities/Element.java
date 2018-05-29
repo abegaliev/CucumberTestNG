@@ -8,51 +8,28 @@ package utilities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
+
+import com.google.common.base.Function;
 
 /**
- * This is customized utility class from author, which contains reusable methods
+ * This is customized utility class, which contains reusable methods
  * related to Selenium WebDriver automation.
  * 
  * @author Almazbek Begaliev
  */
-public class Selenium {
+public class Element {
 
-	private static WebDriver driver = Browser.getDriver();
-
-	/**
-	 * implements: driver.manage().timeouts().implicitlyWait( Long arg1 , TimeUnit
-	 * arg2);
-	 * 
-	 * @param seconds
-	 */
-	public static void implicitTimeouts(int seconds) {
-		driver.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
-	}
-
-	/**
-	 * Causes the currently executing thread line to sleep (temporarily cease
-	 * execution) for the specified number of milliseconds.
-	 * 
-	 * @param seconds,
-	 *            the length of time to sleep in seconds
-	 */
-	public static void sleep(int seconds) {
-		try {
-			Thread.sleep(seconds * 1000); // converting to millis;
-		} catch (InterruptedException e) {
-			System.out.println(e);
-		}
-	}
-
+	
 	/**
 	 * Returns List of handles(ID's of all opened windows/tabs by this driver).
 	 * 
@@ -60,11 +37,13 @@ public class Selenium {
 	 * @return List<String>;
 	 */
 	public static List<String> getListOfHandles() {
+		WebDriver driver = Browser.getDriver();
 		Set<String> setID = driver.getWindowHandles();
 		List<String> list = new ArrayList<>(setID);
 		return list;
 	}
 
+	
 	/**
 	 * Accepts a locator of web elements and returns text of those elements
 	 * 
@@ -74,6 +53,7 @@ public class Selenium {
 	 * @return List<String>
 	 */
 	public static List<String> getTextOfElements(By by) {
+		WebDriver driver = Browser.getDriver();
 		List<WebElement> elements = driver.findElements(by);
 		List<String> list = new ArrayList<>();
 		for (WebElement element : elements) {
@@ -82,6 +62,7 @@ public class Selenium {
 		return list;
 	}
 
+	
 	/**
 	 * Accepts WebElements and returns text of those elements as List
 	 * 
@@ -96,15 +77,6 @@ public class Selenium {
 		return list;
 	}
 
-	/**
-	 * Validates given expected and actual titles of the page.
-	 * 
-	 * @param expectedTitle
-	 */
-	public static void verifyTitle(String expectedTitle) {
-		String actualTitle = driver.getTitle();
-		Assert.assertEquals("Title verification failed: ", expectedTitle, actualTitle);
-	}
 
 	/**
 	 * Returns true if element is presented on the Web Page, false otherwise
@@ -113,78 +85,108 @@ public class Selenium {
 	 * @return
 	 */
 	public static boolean isPresented(By locator) {
+		WebDriver driver = Browser.getDriver();
 		List<WebElement> elementList = driver.findElements(locator);
 		int size = elementList.size();
 		return (size > 0);
 	}
 
-
 	
 	/**
 	 * Uses WebDriverWait class and explicitly waits during the given timeout for
-	 * element to be visible on the WebPage, returns the elements if it was found,
-	 * null otherwise
+	 * element to be visible on the WebPage, returns the elements if it was found, null otherwise
 	 * 
 	 * @param locator
-	 * @param timeOutInSec
-	 * @return
+	 * @param timeInSec
+	 * @return element
 	 */
-	public static WebElement waitToBeVisible(By locator, int timeOutInSec) {
-		System.out.println("Explicitly waiting: " + timeOutInSec + " seconds for element to be available");
-		WebDriverWait wait = new WebDriverWait(driver, timeOutInSec);
+	public static WebElement waitToBeVisible(By locator, int timeInSec) {
+		WebDriver driver = Browser.getDriver();
+		System.out.println("Explicitly waiting: " + timeInSec + " seconds for element to be available");
+		WebDriverWait wait = new WebDriverWait(driver, timeInSec);
 		WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 		return element;
 	}
 
+	
 	/**
 	 * Uses WebDriverWait class and explicitly waits during the given timeout for
-	 * element to be visible on the WebPage, returns the element if it was found,
-	 * null otherwise
+	 * element to be visible on the WebPage, returns the element if it was found, null otherwise
 	 * 
 	 * @param WebElement
-	 * @param timeOutInSec
-	 * @return
+	 * @param timeInSec
+	 * @return element
 	 */
-	public static WebElement waitToBeVisible(WebElement element, int timeOutInSec) {
-		System.out.println("Explicitly waiting: " + timeOutInSec + " seconds for element to be available");
+	public static WebElement waitToBeVisible(WebElement element, int timeInSec) {
+		WebDriver driver = Browser.getDriver();
+		System.out.println("Explicitly waiting: " + timeInSec + " seconds for element to be available");
 
-		WebDriverWait wait = new WebDriverWait(driver, timeOutInSec);
+		WebDriverWait wait = new WebDriverWait(driver, timeInSec);
 		element = wait.until(ExpectedConditions.visibilityOf(element));
 		return element;
 	}
 
+	
 	/**
 	 * Uses WebDriverWait class and explicitly waits during the given timeout for
 	 * element to be clickable, and returns that Element.
 	 * 
 	 * @param WebElement
-	 * @param timeOutInSec
-	 * @return WebElement
+	 * @param timeInSec
+	 * @return element
 	 */
-	public static WebElement waitToBeClickable(WebElement elem, int timeOutInSec) {
-		System.out.println("Explicitly waiting: " + timeOutInSec + " seconds for element to be clickable");
+	public static WebElement waitToBeClickable(WebElement elem, int timeInSec) {
+		WebDriver driver = Browser.getDriver();
+		System.out.println("Explicitly waiting: " + timeInSec + " seconds for element to be clickable");
 
-		WebDriverWait wait = new WebDriverWait(driver, timeOutInSec);
+		WebDriverWait wait = new WebDriverWait(driver, timeInSec);
 		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(elem));
 		return element;
 	}
 
+	
 	/**
 	 * Uses WebDriverWait class and explicitly waits during the given timeout for
 	 * element to be clickable. Returns element if it was clickable.
 	 * 
 	 * @param locator
-	 * @param timeOutInSec
-	 * @return
+	 * @param timeInSec
+	 * @return element
 	 */
-	public static WebElement waitToBeClickable(By locator, int timeOutInSec) {
-		System.out.println("Explicitly waiting: " + timeOutInSec + " seconds for element to be clickable");
+	public static WebElement waitToBeClickable(By locator, int timeInSec) {
+		WebDriver driver = Browser.getDriver();
+		System.out.println("Explicitly waiting: " + timeInSec + " seconds for element to be clickable");
 
-		WebDriverWait wait = new WebDriverWait(driver, timeOutInSec);
+		WebDriverWait wait = new WebDriverWait(driver, timeInSec);
 		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
 		return element;
 	}
 
+	
+	/**
+	 * 
+	 * 
+	 * @param locator
+	 * @param timeInSec
+	 * @return 
+	 */
+	public static WebElement fluentWait(final By locator, int timeInSec) {
+		WebDriver driver = Browser.getDriver();
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(timeInSec, TimeUnit.SECONDS)
+				.pollingEvery(1, TimeUnit.SECONDS).ignoring(NoSuchElementException.class);
+
+		WebElement element = wait.until(new Function<WebDriver, WebElement>() {
+
+			@Override
+			public WebElement apply(WebDriver driver) {
+				return driver.findElement(locator);
+			}
+		});
+		return element;
+	}
+	
+	
+	
 	/**
 	 * Returns index of target number in the given List.
 	 * 
@@ -192,14 +194,22 @@ public class Selenium {
 	 * @param target
 	 * @return
 	 */
-	public static ArrayList<Integer> getIndex(List<Integer> list, int target) {
-		ArrayList<Integer> ind = new ArrayList<>();
+	public static int getIndex(List<Integer> list, int target) {
+		int ind = -1;
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i) == target) {
-				ind.add(i + 1);
+				ind = i;
 			}
 		}
 		return ind;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

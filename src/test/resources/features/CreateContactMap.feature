@@ -6,6 +6,7 @@ Feature: Creating Contact
     And I create a new Contact
       | firstName | Sara  |
       | lastName  | Clain |
+    Then Log out
 
   @outline
   Scenario Outline: Creat a Contact
