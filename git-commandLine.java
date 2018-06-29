@@ -39,4 +39,26 @@ To make a pull request from one branch to Master branch:
 										4. git merger branchName		==to merge branch
 										5. git push origin Master       ==To push to master
 
-To 
+
+
+To Ignore some files while commiting: 
+
+							1. Crete file: .gitignore  (type when creating file: .gitignore.)
+
+							2. add extensions of files that you want to ignore to .gitignore file 
+													
+										1   FileName 		= to ignore specific file
+
+										2   .txt			= to ignore every file that contains .txt extension
+
+										3	video.*			= to ignore all files containing "video" in thire title
+
+										4	video*			= will ignore all files starting with "video"
+
+										5	folderName/*    =*/will ignore all files that are inside this folder
+
+
+										6   !				= not ignore
+
+
+
