@@ -18,13 +18,12 @@ import org.openqa.selenium.WebElement;
  * @author almazbekbegaliev
  *
  */
-public class Jsexecutor {
+public class JsExecutor {
 
 	/**
 	 * Finds and returns WebElement using JavascriptExecutor
 	 * 
-	 * @param By
-	 *            locator
+	 * @param By locator
 	 * @return WebElement
 	 */
 	public static WebElement getElement(By locator) {

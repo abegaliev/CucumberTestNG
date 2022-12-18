@@ -1,15 +1,9 @@
 package stepDefinitions;
 
-import org.openqa.selenium.WebDriver;
-import org.testng.asserts.SoftAssert;
-
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import pages.ContactsPage;
 import pages.SuiteCRMDashboardPage;
-import pages.SuiteCRMLoginPage;
-import utilities.Browser;
-import utilities.DropDown;
 
 public class CreateContact_stepDefs {
  

@@ -2,7 +2,7 @@ package stepDefinitions;
 
 import org.testng.Assert;
 
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.When;
 import pages.ContactsPage;
 import utilities.Browser;
 import utilities.ExcelUtils;

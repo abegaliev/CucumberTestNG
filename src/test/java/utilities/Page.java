@@ -2,6 +2,7 @@ package utilities;
 
 import java.awt.AWTException;
 import java.awt.Robot;
+import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.Alert;
@@ -58,7 +59,7 @@ public class Page {
 		};
 		try {
 			System.out.println("Waiting for page to get loaded...");
-			WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOutInSeconds));
 			wait.until(expectation);
 		} catch (Throwable error) {
 			System.out.println(
@@ -75,7 +76,7 @@ public class Page {
 		WebDriver driver = Browser.getDriver();
 		try {
 			// Waits till alert is present
-			WebDriverWait wait = new WebDriverWait(driver, timeInSec);
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeInSec));
 			Alert alert = wait.until(ExpectedConditions.alertIsPresent());
 
 			alert.dismiss();
@@ -93,7 +94,7 @@ public class Page {
 	public static void switchToSecondWindow() {
 		WebDriver driver = Browser.getDriver();
 		String currentHandle = driver.getWindowHandle();
-		List<String> handles = Element.getListOfHandles();
+		List<String> handles = Browser.getListOfHandles();
 		for (String handle : handles) {
 			if (!handle.equals(currentHandle)) {
 				driver.switchTo().window(handle);
@@ -105,7 +106,7 @@ public class Page {
 
 	public static void switchToWindow(int index) {
 		WebDriver driver = Browser.getDriver();
-		List<String> handles = Element.getListOfHandles();
+		List<String> handles = Browser.getListOfHandles();
 		if (handles.size() > index)
 			driver.switchTo().window(handles.get(index));
 		else {

@@ -6,7 +6,7 @@ import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
-import cucumber.api.Scenario;
+import io.cucumber.java.Scenario;
 
 public class Extent {
 
@@ -14,7 +14,7 @@ public class Extent {
 	private static ExtentTest logger;
 
 	static {
-		report = new ExtentReports("/Users/almazbekbegaliev/Desktop/report.html");
+		report = new ExtentReports("/Users/almazbek/Desktop/report.html");
 		logger = report.startTest("Runnig Smoke Test");
 		logger.log(LogStatus.INFO, "Browser Started...");
 	}

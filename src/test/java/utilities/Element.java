@@ -6,11 +6,11 @@
 
 package utilities;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,26 +31,11 @@ public class Element {
 
 	
 	/**
-	 * Returns List of handles(ID's of all opened windows/tabs by this driver).
-	 * 
-	 * @param driver;
-	 * @return List<String>;
-	 */
-	public static List<String> getListOfHandles() {
-		WebDriver driver = Browser.getDriver();
-		Set<String> setID = driver.getWindowHandles();
-		List<String> list = new ArrayList<>(setID);
-		return list;
-	}
-
-	
-	/**
 	 * Accepts a locator of web elements and returns text of those elements
 	 * 
-	 * @param driver
-	 * @param locator
+	 * @param By locator
 	 * 
-	 * @return List<String>
+	 * @return A list of texts of WebElements
 	 */
 	public static List<String> getTextOfElements(By by) {
 		WebDriver driver = Browser.getDriver();
@@ -66,8 +51,8 @@ public class Element {
 	/**
 	 * Accepts WebElements and returns text of those elements as List
 	 * 
-	 * @param List<WebElement>
-	 * @return List<String>
+	 * @param List of WebElements
+	 * @return A list of texts of WebElements
 	 */
 	public static List<String> getTextOfElements(List<WebElement> elements) {
 		List<String> list = new ArrayList<>();
@@ -82,7 +67,7 @@ public class Element {
 	 * Returns true if element is presented on the Web Page, false otherwise
 	 * 
 	 * @param locator
-	 * @return
+	 * @return true of false
 	 */
 	public static boolean isPresented(By locator) {
 		WebDriver driver = Browser.getDriver();
@@ -94,16 +79,17 @@ public class Element {
 	
 	/**
 	 * Uses WebDriverWait class and explicitly waits during the given timeout for
-	 * element to be visible on the WebPage, returns the elements if it was found, null otherwise
+	 * element to be visible on the WebPage, returns the elements if it was found,
+	 * null otherwise
 	 * 
 	 * @param locator
-	 * @param timeInSec
+	 * @param time    in seconds
 	 * @return element
 	 */
 	public static WebElement waitToBeVisible(By locator, int timeInSec) {
 		WebDriver driver = Browser.getDriver();
 		System.out.println("Explicitly waiting: " + timeInSec + " seconds for element to be available");
-		WebDriverWait wait = new WebDriverWait(driver, timeInSec);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeInSec));
 		WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 		return element;
 	}
@@ -121,30 +107,13 @@ public class Element {
 		WebDriver driver = Browser.getDriver();
 		System.out.println("Explicitly waiting: " + timeInSec + " seconds for element to be available");
 
-		WebDriverWait wait = new WebDriverWait(driver, timeInSec);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeInSec));
 		element = wait.until(ExpectedConditions.visibilityOf(element));
 		return element;
 	}
 
 	
-	/**
-	 * Uses WebDriverWait class and explicitly waits during the given timeout for
-	 * element to be clickable, and returns that Element.
-	 * 
-	 * @param WebElement
-	 * @param timeInSec
-	 * @return element
-	 */
-	public static WebElement waitToBeClickable(WebElement elem, int timeInSec) {
-		WebDriver driver = Browser.getDriver();
-		System.out.println("Explicitly waiting: " + timeInSec + " seconds for element to be clickable");
 
-		WebDriverWait wait = new WebDriverWait(driver, timeInSec);
-		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(elem));
-		return element;
-	}
-
-	
 	/**
 	 * Uses WebDriverWait class and explicitly waits during the given timeout for
 	 * element to be clickable. Returns element if it was clickable.
@@ -157,23 +126,41 @@ public class Element {
 		WebDriver driver = Browser.getDriver();
 		System.out.println("Explicitly waiting: " + timeInSec + " seconds for element to be clickable");
 
-		WebDriverWait wait = new WebDriverWait(driver, timeInSec);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeInSec));
 		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
 		return element;
 	}
+	
 
+	/**
+	 * Uses WebDriverWait class and explicitly waits during the given timeout for
+	 * element to be clickable, and returns that Element.
+	 * 
+	 * @param WebElement
+	 * @param timeInSec
+	 * @return element
+	 */
+	public static WebElement waitToBeClickable(WebElement element, int timeInSec) {
+		WebDriver driver = Browser.getDriver();
+		System.out.println("Explicitly waiting: " + timeInSec + " seconds for element to be clickable");
+
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeInSec));
+		WebElement elemen = wait.until(ExpectedConditions.elementToBeClickable(element));
+		return elemen;
+	}
 	
 	/**
-	 * 
+	 * Uses a FluentWait class and waits for a WebElement to be available during
+	 * giving timeout and returns that WebElement if found, null otherwise
 	 * 
 	 * @param locator
 	 * @param timeInSec
-	 * @return 
+	 * @return WebElement
 	 */
 	public static WebElement fluentWait(final By locator, int timeInSec) {
 		WebDriver driver = Browser.getDriver();
-		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(timeInSec, TimeUnit.SECONDS)
-				.pollingEvery(1, TimeUnit.SECONDS).ignoring(NoSuchElementException.class);
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(timeInSec))
+				.ignoring(NoSuchElementException.class);
 
 		WebElement element = wait.until(new Function<WebDriver, WebElement>() {
 
@@ -192,7 +179,7 @@ public class Element {
 	 * 
 	 * @param list
 	 * @param target
-	 * @return
+	 * @return index of target number, -1 if not found
 	 */
 	public static int getIndex(List<Integer> list, int target) {
 		int ind = -1;

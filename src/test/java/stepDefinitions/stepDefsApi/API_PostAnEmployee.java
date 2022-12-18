@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -48,13 +48,14 @@ public class API_PostAnEmployee {
 		uiEmployeeDataMap.put("job_id", searchPage.jobId.getAttribute("value"));
 		uiEmployeeDataMap.put("salary", Integer.valueOf(searchPage.salary.getAttribute("value")));
 		uiEmployeeDataMap.put("department_id", Integer.valueOf(searchPage.departmentId.getText()));
-		
+
 		//compare the data against Json data used in POST api /  MAP
 		for (Object key : uiEmployeeDataMap.keySet()) {
 			System.out.println(uiEmployeeDataMap.get(key) + " <> " + reqEmployee.get(key));
 			assertEquals(uiEmployeeDataMap.get(key), reqEmployee.get(key));
 		}
 	}
+
 	
 	@Then("^I search for Employee with \"([^\"]*)\" id$")
 	public void i_search_for_Employee_with_id(String id) {

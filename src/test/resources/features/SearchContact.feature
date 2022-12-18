@@ -1,6 +1,6 @@
 Feature: Contact search Functionality
 
-  @search
+  @search @dev
   Scenario: Validating the contact information in search funtionality
   
     Given I logged into suiteCRM

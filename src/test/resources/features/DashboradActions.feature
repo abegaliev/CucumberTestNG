@@ -1,5 +1,5 @@
 Feature: Note on Dashboard
-@now
+@dev
   Scenario: Post a not on Dashboard
     Given I logged into suiteCRM
     When I post "Hello World, I am doing great"

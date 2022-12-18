@@ -6,10 +6,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.time.LocalDateTime;
+import java.util.Date;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+
+import io.cucumber.java.Scenario;
 
 public final class Screenshot {
 
@@ -56,6 +60,18 @@ public final class Screenshot {
 		return fullPath;
 	}
 	
+	public static void getScreenShotCucumber(Scenario scenario, WebDriver driver) {
+		Date currentDate = new Date();
+		String screenShotFileName = currentDate.toString().replace(" ", "-").replace(":", "-");
+		if (scenario.isFailed()) {
+			File screenShotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+			try {
+				FileUtils.copyFile(screenShotFile, new File("src/test/java/screenshot/" + screenShotFileName + ".png"));
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
 
 	public static String getRandomString(int length) {
 		StringBuilder sb = new StringBuilder();

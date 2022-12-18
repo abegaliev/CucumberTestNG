@@ -1,7 +1,7 @@
 package utilities;
 
+import java.time.Duration;
 import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,8 +15,8 @@ public class FluentUtil {
 
 	public static WebElement getElementWithWait(WebDriver driver, final By locator, int duration, int frequency) {
 
-		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(duration, TimeUnit.SECONDS)
-				.pollingEvery(frequency, TimeUnit.SECONDS).ignoring(NoSuchElementException.class);
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(duration))
+				.pollingEvery(Duration.ofSeconds(frequency)).ignoring(NoSuchElementException.class);
 
 		WebElement message = wait.until(new Function<WebDriver, WebElement>() {
 

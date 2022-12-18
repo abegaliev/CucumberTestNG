@@ -5,8 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import pages.SuiteCRMDashboardPage;
 import pages.SuiteCRMLoginPage;
 import utilities.Browser;

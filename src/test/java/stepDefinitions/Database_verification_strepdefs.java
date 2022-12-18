@@ -7,15 +7,15 @@ import java.util.Map;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import pages.HrAppDeptEmpPage;
 import tests.OracleDb;
 import utilities.Browser;
 import utilities.Config;
 import utilities.Element;
-import utilities.Jsexecutor;
+import utilities.JsExecutor;
 
 public class Database_verification_strepdefs {
 
@@ -87,7 +87,7 @@ public class Database_verification_strepdefs {
 		deptEmpPage.searchForDepartment(depId);
 		Browser.sleep(2);
 		deptEmpPage.detach.click();
-		Jsexecutor.scroll(1000);
+		JsExecutor.scroll(1000);
 		
 		UIDepData = new HashMap<>();
 		UIDepData.put("EMPLOYEES_COUNT", String.valueOf(deptEmpPage.employees.size()));

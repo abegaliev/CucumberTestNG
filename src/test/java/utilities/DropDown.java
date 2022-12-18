@@ -1,8 +1,10 @@
 package utilities;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotEquals;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import static org.testng.Assert.*;
 
 public class DropDown {
 

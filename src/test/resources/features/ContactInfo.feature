@@ -1,6 +1,6 @@
 Feature: Contact Information
 
-@contact
+@contact @dev
 Scenario:  Acceptance Criteria
         Given I logged into suiteCRM
         When I search for "John Doe"

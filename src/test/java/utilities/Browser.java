@@ -1,16 +1,19 @@
 package utilities;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.opera.OperaDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.github.bonigarcia.wdm.managers.OperaDriverManager;
 
 public class Browser {
 
@@ -22,6 +25,7 @@ public class Browser {
 	 * 
 	 * @return driver;
 	 */
+
 	public static final WebDriver getDriver() {
 
 		if (driver == null) { // || ((RemoteWebDriver) driver).getSessionId() == null) {
@@ -64,7 +68,7 @@ public class Browser {
 
 			case "opera":
 				WebDriverManager.operadriver().setup();
-				driver = new OperaDriver();
+				driver = new OperaDriverManager().getWebDriver();
 				break;
 				
 			case "remote":
@@ -73,21 +77,34 @@ public class Browser {
 			}
 
 			driver.manage().window().maximize();
-			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
 		}
 		return driver;
 	}
 
 	/**
-	 * Implements: driver.manage().timeouts().implicitlyWait( Long arg1 , TimeUnit
-	 * arg2);
+	 * Implements:
+	 * driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeOut);
 	 * 
 	 * @param seconds
 	 */
 	public static void implicitTimeouts(int seconds) {
 		WebDriver driver = Browser.getDriver();
-		driver.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(seconds));
+	}
+
+	/**
+	 * Returns List of handles(ID's of all opened windows/tabs by this driver).
+	 * 
+	 * @param driver;
+	 * @return list of handles
+	 */
+	public static List<String> getListOfHandles() {
+		WebDriver driver = Browser.getDriver();
+		Set<String> setID = driver.getWindowHandles();
+		List<String> list = new ArrayList<>(setID);
+		return list;
 	}
 
 	/**
