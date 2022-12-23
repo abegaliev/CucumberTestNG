@@ -1,0 +1,11 @@
+
+settings.xml
+CucumberTestNG.iml
+.idea
+.classpath
+.project
+.png
+.iml
+.settings
+/target/
+/test-output/

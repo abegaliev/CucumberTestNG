@@ -17,7 +17,7 @@ public final class Config {
 	private static Properties properties;
 
 	static {
-		final String fileName = "./configuration.properties";
+		final String fileName = "./src/test/resources/testData/configuration.properties";
 		try {
 			FileInputStream input = new FileInputStream(fileName);
 			properties = new Properties();
