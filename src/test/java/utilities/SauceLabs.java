@@ -15,8 +15,8 @@ public class SauceLabs {
 	// https://wiki.saucelabs.com/display/DOCS/Example+Selenium+Scripts+for+Automated+Website+Tests
 	// https://wiki.saucelabs.com/display/DOCS/Java+Test+Setup+Example
 
-	public static final String USERNAME = Config.getProperty("souce.username");
-	public static final String ACCESS_KEY = Config.getProperty("souce.acceskey");
+	public static final String USERNAME = Config.getProperty("souceLabs.username");
+	public static final String ACCESS_KEY = Config.getProperty("souceLabs.acceskey");
 	public static final String URL = "http://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.saucelabs.com:80/wd/hub";
 	public static final String browserName = Config.getProperty("remote.browser");
 	public static final String browserVersion = Config.getProperty("remote.version");

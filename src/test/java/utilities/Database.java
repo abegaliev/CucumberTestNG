@@ -75,22 +75,22 @@ public class Database {
 	public static List<Map<String, Object>> runSQLQuery(String sqlQuery){
 		try {
 			resultSet = statement.executeQuery(sqlQuery);
-			ResultSetMetaData rsMeta = resultSet.getMetaData();
+			ResultSetMetaData rsMetaData = resultSet.getMetaData();
 
-			List<Map<String, Object>> queryData = new ArrayList<>();
-			int columnCount = rsMeta.getColumnCount();
+			List<Map<String, Object>> queryDataList = new ArrayList<>();
+			int columnCount = rsMetaData.getColumnCount();
 
 			while (resultSet.next()) {
 				Map<String, Object> row = new HashMap<>();
 
 				for (int column = 1; column <= columnCount; column++) {
-					row.put(rsMeta.getColumnName(column), resultSet.getObject(column));
+					row.put(rsMetaData.getColumnName(column), resultSet.getObject(column));
 				}
-				queryData.add(row);
+				queryDataList.add(row);
 			}
 			
 			resultSet.close();
-			return queryData;
+			return queryDataList;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

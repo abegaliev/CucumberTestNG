@@ -1,6 +1,5 @@
 package utilities;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -37,9 +36,9 @@ public class StrUtils {
 		return number;
 	}
 
-	public static ArrayList getDigits(List<String> list) {
+	public static ArrayList<Object> getDigits(List<String> list) {
 
-		ArrayList numbers = new ArrayList();
+		ArrayList<Object> numbers = new ArrayList<Object>();
 		String str = "";
 		char ch;
 
@@ -146,7 +145,6 @@ public class StrUtils {
 	 * @return String
 	 */
 	public static String getRandomName(int length) {
-		Random random = new Random();
 		StringBuilder s = new StringBuilder();
 		for (int i = 0; i < length; i++) {
 			s.append(getRandomChar(i == 0));

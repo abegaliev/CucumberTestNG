@@ -24,7 +24,6 @@ public final class Config {
 			properties.load(input);
 			input.close();
 		} catch (FileNotFoundException e) {
-
 			System.err.println("Could't find properties file: " + fileName+":\n"+e);
 
 		} catch (IOException e) {

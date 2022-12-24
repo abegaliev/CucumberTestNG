@@ -38,13 +38,15 @@ public class ExcelUtils {
 		excelFilePath = filePath;
 		try {
 
+			// Open the Excel file
 			File file = new File(filePath);
 			FileInputStream ExcelFile = new FileInputStream(file);
 
+			// Access the excel data sheet
 			excelWBook = new XSSFWorkbook(ExcelFile);
 			excelWSheet = excelWBook.getSheet(sheetName);
 		} catch (Exception e) {
-			System.out.println("Exception from Constructor of ExcelUtils: " + e);
+			System.out.println("Exception while reading the Exe file: " + filePath + "/n" + e);
 		}
 	}
 

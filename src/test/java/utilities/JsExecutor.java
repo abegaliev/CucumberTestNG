@@ -20,6 +20,8 @@ import org.openqa.selenium.WebElement;
  */
 public class JsExecutor {
 
+	private static final JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
+
 	/**
 	 * Finds and returns WebElement using JavascriptExecutor
 	 * 
@@ -27,35 +29,34 @@ public class JsExecutor {
 	 * @return WebElement
 	 */
 	public static WebElement getElement(By locator) {
-		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
 		WebElement element = null;
 
 		String locText = locator.toString();
+		System.out.println(locText);
 		int index = locText.indexOf(" ") + 1;
 		locText = locText.substring(index);
-		locText = "\"" + locText + "\"";
+		locText = "'" + locText + "'";
 
 		if (locator instanceof ById) {
 			element = (WebElement) js.executeScript("return document.getElementById(" + locText + ");");
 
+		} else if (locator instanceof ByClassName) {
+			List<WebElement> list = (List<WebElement>) js.executeScript("return document.getElementsByClassName(" + locText + ");");
+			if (list.size() > 0)
+				element = list.get(0);
+
+		} else if (locator instanceof ByName) {
+			List<WebElement> list = (List<WebElement>) js.executeScript("return document.getElementsByName(" + locText + ");");
+			if (list.size() > 0)
+				element = list.get(0);
+
 		} else if (locator instanceof ByCssSelector) {
 			element = (WebElement) js.executeScript("return document.querySelector(" + locText + ");");
 
-		} else if (locator instanceof ByClassName) {
-			List<WebElement> list = (List<WebElement>) js
-					.executeScript("return document.getElementsByClassName(" + locText + ");");
-			if (list.size() > 0)
-				element = list.get(0);
-
-			// } else if (locator instanceof ByXPath) {
-			// element = (WebElement) js.executeScript("return document.getElementByXPath("
-			// + locText + ");");
-
-		} else if (locator instanceof ByName) {
-			List<WebElement> list = (List<WebElement>) js
-					.executeScript("return document.getElementsByName(" + locText + ");");
-			if (list.size() > 0)
-				element = list.get(0);
+//		} else if (locator instanceof ByXPath) {
+//
+//			String script = "return document.evaluate(" + locText + ", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;";
+//			element = (WebElement) js.executeScript(script);
 		}
 
 		if (element == null)
@@ -70,7 +71,6 @@ public class JsExecutor {
 	 * @param element
 	 */
 	public static void click(WebElement element) {
-		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
 		js.executeScript("arguments[0].click();", element);
 	}
 
@@ -80,7 +80,6 @@ public class JsExecutor {
 	 * @param element
 	 */
 	public static void clicAndkHighlight(WebElement element) {
-		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
 		js.executeScript("arguments[0].style.border='3px solid red'", element);
 		js.executeScript("arguments[0].click();", element);
 	}
@@ -93,7 +92,7 @@ public class JsExecutor {
 	public static void safeClick(WebElement element) {
 		try {
 
-			((JavascriptExecutor) Browser.getDriver()).executeScript("arguments[0].click();", element);
+			js.executeScript("arguments[0].click();", element);
 
 		} catch (StaleElementReferenceException e) {
 			System.out.println("Element is not attached to the page document: " + e.getStackTrace());
@@ -113,7 +112,6 @@ public class JsExecutor {
 	 * @param pixels
 	 */
 	public static void scroll(int pixels) {
-		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
 		js.executeScript("scroll(0," + pixels + ");");
 	}
 
@@ -123,7 +121,6 @@ public class JsExecutor {
 	 * @param element
 	 */
 	public static void scrollToElement(WebElement element) {
-		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
 		js.executeScript("arguments[0].scrollIntoView(true);", element);
 	}
 
@@ -133,7 +130,6 @@ public class JsExecutor {
 	 * @param element
 	 */
 	public static void highlight(WebElement element) {
-		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
 		js.executeScript("arguments[0].style.border='3px dotted red'", element);
 
 	}
@@ -145,8 +141,6 @@ public class JsExecutor {
 	 * @return String text of the element
 	 */
 	public static String getText(WebElement element) {
-		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
-
 		String text = (String) (js.executeScript("return arguments[0].value;", element));
 		if (text == null || text.isEmpty()) {
 			text = (String) (js.executeScript("return arguments[0].innerHTML;", element));
@@ -163,9 +157,9 @@ public class JsExecutor {
 	 */
 	public static void setText(WebElement element, String attributeName, String text) {
 		// WrapsDriver wrappedElement = (WrapsDriver) element;
-		// JavascriptExecutor driver = (JavascriptExecutor)wrappedElement.getWrappedDriver();
-		
-		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
+		// JavascriptExecutor driver =
+		// (JavascriptExecutor)wrappedElement.getWrappedDriver();
+
 		js.executeScript("arguments[0].setAttribute(arguments[1],arguments[2])", element, attributeName, text);
 	}
 
@@ -186,7 +180,6 @@ public class JsExecutor {
 	 * return pageText;
 	 */
 	public static String getInnerText() {
-		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
 		String pageText = js.executeScript("return document.documentElement.innerText;").toString().trim();
 		return pageText;
 	}
@@ -197,7 +190,6 @@ public class JsExecutor {
 	 * @param message
 	 */
 	public static void generateAlert(String message) {
-		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
 		js.executeScript("alert('" + message + "')");
 	}
 
@@ -205,8 +197,14 @@ public class JsExecutor {
 	 * Refreshes the page.
 	 */
 	public static void refreshPage() {
-		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
 		js.executeScript("history.go(0);");
+	}
+
+	/**
+	 * Refreshes the window.
+	 */
+	public static void refreshWindow() {
+		js.executeScript("location.reload()");
 	}
 
 	/**
@@ -215,12 +213,15 @@ public class JsExecutor {
 	 * @return long[] size, [ height, width]
 	 */
 	public static long[] getWindowSize() {
-		JavascriptExecutor js = (JavascriptExecutor) Browser.getDriver();
 		long[] size = new long[2];
 		size[0] = (long) js.executeScript("return window.innerHeight;");
 		size[1] = (long) js.executeScript("return window.innerWidth;");
 
 		return size;
+	}
+
+	public static void scrollToButtom() {
+		js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 	}
 
 }
